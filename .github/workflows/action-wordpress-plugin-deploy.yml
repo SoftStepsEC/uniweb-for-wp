@@ -1,0 +1,39 @@
+# https://github.com/10up/action-wordpress-plugin-deploy/blob/2fc92c4e0795e8dad9dadc4cfe71d8efd1b5543a/examples/deploy-on-pushing-a-new-tag-and-create-release-with-attached-zip.yml
+
+name: Deploy and Release Plugin
+# Define the events that trigger the workflow
+on:
+  push:
+    tags:
+      - '*' # Triggered when a version tag is pushed
+jobs:
+    tag:
+        name: New tag to WordPress SVN
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v2
+        - name: Setup Node.js
+            uses: actions/setup-node@v1  # Node.js のセットアップ
+            with:
+            node-version: '14'  # 使用するNode.jsのバージョン
+        - name: Build
+            run: |
+            composer install
+            run: composer build
+            npm install
+            npm run build
+        - name: WordPress Plugin Deploy
+            id: deploy
+            uses: 10up/action-wordpress-plugin-deploy@stable
+            with:
+                generate-zip: true
+            env:
+                SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+                SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        - name: Create GitHub release
+          uses: softprops/action-gh-release@v1
+          with:
+            files: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
