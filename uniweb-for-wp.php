@@ -3,7 +3,7 @@
  * Plugin Name:       uniweb for WP
  * Plugin URI:        https://wordpress.org/plugins/uniweb-for-wp
  * Description:       By using this plugin and service, you can create an accessible WordPress site without doing anything.
- * Version:           1.0.5
+ * Version:           1.1.0
  * Author:            Shohei Tanaka
  * Author URI:        https://ssec.shop//
  * License:           GPL-3.0+
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'UNIWEB_FOR_WP_VERSION', '1.0.5' );
+define( 'UNIWEB_FOR_WP_VERSION', '1.1.0' );
 
 /**
  * The code that runs during plugin activation.
