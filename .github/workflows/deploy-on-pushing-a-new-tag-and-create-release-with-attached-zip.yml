@@ -1,3 +1,5 @@
+# After pushing a new tag, this workflow will deploy the plugin to the WordPress.org plugin repository and create a new release on GitHub with the attached zip file.
+# git push origin --tags
 name: Deploy and Release Plugin
 on:
   push:
