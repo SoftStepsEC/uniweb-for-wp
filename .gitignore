@@ -15,3 +15,6 @@ composer.lock
 
 #php storm file
 .idea/
+
+# remove illustrator file
+assets/*.ai

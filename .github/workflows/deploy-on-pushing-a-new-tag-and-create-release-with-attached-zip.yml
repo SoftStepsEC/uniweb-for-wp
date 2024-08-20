@@ -26,4 +26,16 @@ jobs:
         files: ${{github.workspace}}/${{ github.event.repository.name }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Copy files to SVN trunk
+      run: |
+        rsync -r --exclude='*.git*' --exclude='.svn' ./ uniweb-for-wp/trunk/
+    - name: Copy assets to SVN assets
+      run: |
+        mkdir -p uniweb-for-wp/assets
+        rsync -r --delete ./assets/ uniweb-for-wp/assets/
+    - name: Commit files to SVN
+      run: |
+        cd uniweb-for-wp
+        svn add --force trunk/assets
+        svn commit -m "Deploying version ${GITHUB_REF##*/} from GitHub"
         
